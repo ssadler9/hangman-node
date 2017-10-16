@@ -1,0 +1,24 @@
+{
+  "name": "hangman-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ssadler9/hangman-node.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ssadler9/hangman-node/issues"
+  },
+  "homepage": "https://github.com/ssadler9/hangman-node#readme",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "inquirer": "^3.3.0",
+    "require": "^2.4.20"
+  }
+}

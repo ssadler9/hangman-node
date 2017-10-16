@@ -1,0 +1,14 @@
+par
+birdie
+eagle
+bogie
+bunker
+fairway
+teebox
+rough
+OB
+double-eagle
+ball
+tee
+knickers
+hat
