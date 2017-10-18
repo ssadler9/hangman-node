@@ -7,32 +7,47 @@
 // if letter is in word, it will display and counter will not change
 // else the screen will say incorrect and the count will go down
 var inquirer = require('inquirer');
-var word = require('./word.js');
+var TheWord = require('./word.js');
 var count = 9;
 var userGuess = [];
-
+var correctGuess = [];
+var word = new TheWord;
+console.log(word);
+ 
 	var Choice = function (word) {
+		console.log(word);
 		if (count > 0) {
 			inquirer.prompt([ {
 				name: 'question',
-				message: this.wordArr
+				message: word.spaces
 				}
 				]).then(function (answers, name) {
-					userGuess.push(answers);
-					console.log(userGuess);
-					if (userGuess === word) {
-						this.wordArr = userGuess;
-						console.log('correct');
-						console.log(count);
-						Choice();
+					// console.log(answers.question);
+					userGuess.push(answers.question);
+					var letterGuessed = answers.question
+					console.log(letterGuessed);
+					console.log(word.wordArr);
+// seems like there should be a foreach loop on question to get each new letter from userGuess
+
+					// correctGuess.push(letterGuessed);
+					// console.log(correctGuess);
+					if (word.word.indexOf(letterGuessed) >= 0) {
+						for (var i = 0; i < word.word.length; i++) {
+							word.spaces[i] = letterGuessed;
+						}
+						console.log(word.spaces);
+						 Choice(word.spaces);
+
 					} else {
 						console.log('wrong');
 						count --;
 						console.log(count);
-						Choice();
-					}
-				})
+						Choice(word.spaces);
+						return;
+					} 
+				}) 
+			
 		}
-}
+	};
 
-Choice();
+Choice(word);
