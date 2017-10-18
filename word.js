@@ -11,10 +11,10 @@ var TheWord = function (word) {
 
 	this.wordArr = [];
 		this.wordArr.push(this.word);
-		console.log(this.wordArr);
+		// console.log(this.wordArr);
 		var array = this.wordArr
 	this.spaces = array;
-	console.log(this.spaces);
+		// console.log(this.spaces);
 
 		for (var i = 0; i < this.word.length; i++) {
 				this.spaces[i] = ' _ ';

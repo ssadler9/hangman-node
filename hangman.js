@@ -25,24 +25,29 @@ console.log(word);
 					// console.log(answers.question);
 					userGuess.push(answers.question);
 					var letterGuessed = answers.question
-					console.log(letterGuessed);
-					console.log(word.wordArr);
+					// console.log(letterGuessed);
+					// console.log(word.wordArr);
 // seems like there should be a foreach loop on question to get each new letter from userGuess
 
 					// correctGuess.push(letterGuessed);
 					// console.log(correctGuess);
-					if (word.word.indexOf(letterGuessed) >= 0) {
+					if (word.word.indexOf(letterGuessed) !== -1) {
+						console.log("it's in here");
+						
 						for (var i = 0; i < word.word.length; i++) {
-							word.spaces[i] = letterGuessed;
+							// word.spaces[i] = letterGuessed;
+							word.spaces.push(letterGuessed);
 						}
-						console.log(word.spaces);
-						 Choice(word.spaces);
+
+						console.log(word);
+						 Choice(word);
 
 					} else {
 						console.log('wrong');
 						count --;
-						console.log(count);
-						Choice(word.spaces);
+						// console.log(count);
+						console.log(word);
+						Choice(word);
 						return;
 					} 
 				}) 
