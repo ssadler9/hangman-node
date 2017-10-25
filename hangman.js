@@ -8,51 +8,54 @@
 // else the screen will say incorrect and the count will go down
 var inquirer = require('inquirer');
 var TheWord = require('./word.js');
-var count = 9;
+
 var userGuess = [];
 var correctGuess = [];
-var word = new TheWord;
-console.log(word);
- 
-	var Choice = function (word) {
-		console.log(word);
-		if (count > 0) {
-			inquirer.prompt([ {
-				name: 'question',
-				message: word.spaces
-				}
-				]).then(function (answers, name) {
-					// console.log(answers.question);
-					userGuess.push(answers.question);
-					var letterGuessed = answers.question
-					// console.log(letterGuessed);
-					// console.log(word.wordArr);
-// seems like there should be a foreach loop on question to get each new letter from userGuess
 
-					// correctGuess.push(letterGuessed);
-					// console.log(correctGuess);
-					if (word.word.indexOf(letterGuessed) !== -1) {
-						console.log("it's in here");
-						
-						for (var i = 0; i < word.word.length; i++) {
-							// word.spaces[i] = letterGuessed;
-							word.spaces.push(letterGuessed);
-						}
 
-						console.log(word);
-						 Choice(word);
+var game = { 
+	wordBank: ['par', 'birdie', 'eagle', 'bogie', 'bunker', 'fairway', 'teebox', 'rough', 'ob', 'ball', 'tee', 'knickers', 'hat'],
+	currentWord: null,
+	count: 9,
+	startGame: function (word){
+		this.randomWord = this.wordBank[Math.floor(Math.random() * this.wordBank.length)]
+		this.currentWord = new TheWord(this.randomWord);
+		this.currentWord.getLetter();
+		this.promptUser();
+	},
 
-					} else {
-						console.log('wrong');
-						count --;
-						// console.log(count);
-						console.log(word);
-						Choice(word);
-						return;
-					} 
-				}) 
-			
+	promptUser: function() {
+		var self = this;
+		inquirer.prompt([ {
+			name:'question',
+			message: self.currentWord.wordRender()
 		}
-	};
+		]).then(function (result){
+			// console.log(error, result);
 
-Choice(word);
+			var lettersFound = self.currentWord.checkLetter(result.question);
+			if (lettersFound === 0){
+				console.log('wrong');
+				self.count--;
+				if (self.count === 0) {
+					console.log('Game Over');
+					console.log('The word was: ' + self.randomWord);
+				} else {
+					console.log(self.count);
+					self.promptUser();
+				}
+			} else {
+				console.log('Correct!');
+				if (self.currentWord.checkWin()){
+					console.log('You Win!');
+				} else {
+					console.log(self.count);
+					self.promptUser();
+				}
+			}
+		})
+	}
+	
+};
+
+game.startGame();

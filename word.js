@@ -3,25 +3,55 @@
 // Loop over array to generate the letters as _ spaces
 // module.export Word
 // var fs = require('fs');
-var wordBank = ['par', 'birdie', 'eagle', 'bogie', 'bunker', 'fairway', 'teebox', 'rough', 'oo', 'ball', 'tee', 'knickers', 'hat'];
+var letter = require('./letters');
 
 var TheWord = function (word) {
-	this.word = wordBank[Math.floor(Math.random() * wordBank.length)];
-		// console.log(this.word);
-
+	this.word = word;
 	this.wordArr = [];
-		this.wordArr.push(this.word);
-		// console.log(this.wordArr);
-		var array = this.wordArr
-	this.spaces = array;
-		// console.log(this.spaces);
+	this.found = false;
 
+	this.getLetter = function(){
 		for (var i = 0; i < this.word.length; i++) {
-				this.spaces[i] = ' _ ';
+				var newLetter = new letter(this.word[i]);
+				this.wordArr.push(newLetter);
 			}
-			// console.log(this.wordArr);
 
+	}
+
+	this.checkLetter = function(userInput){
+		var matched = 0;
+		for (var i = 0; i < this.wordArr.length; i++) {
+			if (this.wordArr[i].character === userInput){
+				this.wordArr[i].appear = true;
+				matched++;
+			}
+		}
+		return matched;
+	}
+
+	this.checkWin = function(){
+		var isWin = false;
+		var lettersFound = 0;
+		for (var i = 0; i < this.wordArr.length; i++) {
+			if (this.wordArr[i].appear) {
+				lettersFound++;
+			}
+		}
+		if (lettersFound === this.wordArr.length){
+			isWin = true;
+		}
+		return isWin;
+	}
+
+	this.wordRender = function (){
+		var string = '';
+		for (var i = 0; i < this.wordArr.length; i++) {
+			string += this.wordArr[i].letterRender();
+		}
+		return string;
+	}
 }
 // TheWord();
 module.exports = TheWord;
 
+ 
